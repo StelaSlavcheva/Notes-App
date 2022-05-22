@@ -7,25 +7,25 @@ import { Component, OnInit, ViewChild, ElementRef, Renderer2, Input } from '@ang
 })
 export class NoteCardComponent implements OnInit {
 
-@Input() title: string;
-@Input() body: string;
+  @Input() title: string;
+  @Input() body: string;
+
+  @ViewChild('truncator') truncator: ElementRef<HTMLElement>;
+  @ViewChild(`bodyText`) bodyText: ElementRef<HTMLElement>;
 
 
-  @ViewChild('truncator') truncator: ElementRef<HTMLElement> ;
-  @ViewChild('bodyText') bodyText: ElementRef<HTMLElement> ;
-
-  constructor(private renderer: Renderer2 ) { }
+  constructor(private renderer: Renderer2) { }
 
   ngOnInit() {
 
     let style = window.getComputedStyle(this.bodyText.nativeElement, null);
-    let viewableHeight = parseInt(style.getPropertyValue('height'), 10);
+    let viewableHeight = parseInt(style.getPropertyValue("height"), 10);
 
-    if(this.bodyText.nativeElement.scrollHeight > viewableHeight){
+    if (this.bodyText.nativeElement.scrollHeight > viewableHeight) {
       this.renderer.setStyle(this.truncator.nativeElement, 'display', 'block');
-      }else{
-        this. renderer.setStyle(this.truncator.nativeElement, 'display', 'none');
-      }
+    } else {
+      this.renderer.setStyle(this.truncator.nativeElement, 'display', 'none');
+    }
   }
 
 }
